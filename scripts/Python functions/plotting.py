@@ -48,8 +48,8 @@ def plot_mean_spectra(
 ) -> None:
     """Plot mean hyperspectral signatures grouped by plate composition."""
     spectra = analysis.loc[:, wavelengths]
-    grouped = spectra.assign(composition=analysis["composition"]).groupby(
-        "composition",
+    grouped = spectra.groupby(
+        analysis["composition"],
         sort=False,
     )
 

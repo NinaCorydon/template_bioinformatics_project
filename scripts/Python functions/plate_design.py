@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 
 STRAIN_NAMES = {
@@ -40,7 +41,7 @@ def load_plate_design(csv_path: str | Path) -> pd.DataFrame:
         raise ValueError("Strain percentages must be between 0 and 100.")
 
     totals = strain_values.sum(axis=1)
-    valid_totals = totals.isclose(0) | totals.isclose(100)
+    valid_totals = np.isclose(totals, 0) | np.isclose(totals, 100)
     if not valid_totals.all():
         invalid_wells = plate.loc[~valid_totals, "well"].tolist()
         raise ValueError(
